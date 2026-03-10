@@ -2,6 +2,7 @@ backend:
   name: github
   repo: hubnix-clients/client-vita-beauty-academy
   branch: main
+  base_url: https://decap-oauth.lesss1986.workers.dev
 
 media_folder: public/images
 public_folder: /images
