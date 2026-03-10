@@ -1,0 +1,31 @@
+---
+import Layout from '../layouts/Layout.astro';
+import site from '../content/site.json';
+---
+<Layout title="About">
+  <section class="py-24">
+    <div class="max-w-4xl mx-auto px-6">
+      <p class="text-xs font-semibold tracking-widest uppercase mb-4" style="color: var(--color-secondary)">Who we are</p>
+      <h1 class="text-5xl font-bold text-white mb-8">About {site.business_name}</h1>
+      <p class="text-xl text-[var(--color-muted)] leading-relaxed mb-8">{site.description}</p>
+      {site.contact.address && (
+        <div class="flex items-start gap-3 mt-8">
+          <div class="w-8 h-8 rounded-lg flex-shrink-0 flex items-center justify-center" style="background: var(--color-primary)20">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="color: var(--color-secondary)">
+              <path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+              <path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+            </svg>
+          </div>
+          <p class="text-[var(--color-muted)]">{site.contact.address}</p>
+        </div>
+      )}
+      <div class="mt-12">
+        <a href="/contact"
+          class="inline-flex px-8 py-3 rounded-xl text-white font-semibold transition-opacity hover:opacity-90"
+          style="background: var(--color-primary)">
+          Contact us
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

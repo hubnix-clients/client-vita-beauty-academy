@@ -1,0 +1,116 @@
+---
+import Layout from '../layouts/Layout.astro';
+import site from '../content/site.json';
+---
+<Layout title="Contact">
+  <section class="py-24">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+
+        <!-- Info -->
+        <div>
+          <p class="text-xs font-semibold tracking-widest uppercase mb-4" style="color: var(--color-secondary)">Get in touch</p>
+          <h1 class="text-5xl font-bold text-white mb-6">Contact us</h1>
+          <p class="text-[var(--color-muted)] text-lg mb-10">We'd love to hear from you. Reach out any way that's convenient.</p>
+
+          <div class="space-y-5">
+            {site.contact.email && (
+              <div class="flex items-center gap-4">
+                <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style="background: var(--color-primary)20">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="color: var(--color-secondary)"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                </div>
+                <a href={`mailto:${site.contact.email}`} class="text-white hover:text-[var(--color-secondary)] transition-colors">{site.contact.email}</a>
+              </div>
+            )}
+            {site.contact.phone && (
+              <div class="flex items-center gap-4">
+                <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style="background: var(--color-primary)20">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="color: var(--color-secondary)"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+                </div>
+                <a href={`tel:${site.contact.phone}`} class="text-white hover:text-[var(--color-secondary)] transition-colors">{site.contact.phone}</a>
+              </div>
+            )}
+            {site.contact.address && (
+              <div class="flex items-start gap-4">
+                <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style="background: var(--color-primary)20">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="color: var(--color-secondary)"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                </div>
+                <p class="text-[var(--color-muted)]">{site.contact.address}</p>
+              </div>
+            )}
+            {site.contact.hours && (
+              <div class="flex items-center gap-4">
+                <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style="background: var(--color-primary)20">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="color: var(--color-secondary)"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                </div>
+                <p class="text-[var(--color-muted)]">{site.contact.hours}</p>
+              </div>
+            )}
+            {site.social.whatsapp && (
+              <a href={`https://wa.me/${site.social.whatsapp.replace(/\D/g,'')}`}
+                class="inline-flex items-center gap-3 px-6 py-3 rounded-xl text-sm font-semibold transition-colors"
+                style="background: #25D36620; border: 1px solid #25D36640; color: #25D366">
+                Chat on WhatsApp
+              </a>
+            )}
+          </div>
+        </div>
+
+        <!-- Form -->
+        <div>
+          <form id="contact-form" class="space-y-5 p-8 rounded-2xl" style="background: var(--color-surface); border: 1px solid rgba(255,255,255,0.06)">
+            <div>
+              <label class="block text-xs font-semibold tracking-widest uppercase mb-2" style="color: var(--color-muted)">Name *</label>
+              <input name="name" type="text" required placeholder="Your name"
+                class="w-full px-4 py-3 rounded-xl text-white text-sm placeholder:text-[var(--color-muted)] focus:outline-none transition-colors"
+                style="background: var(--color-bg); border: 1px solid rgba(255,255,255,0.10)" />
+            </div>
+            <div>
+              <label class="block text-xs font-semibold tracking-widest uppercase mb-2" style="color: var(--color-muted)">Email *</label>
+              <input name="email" type="email" required placeholder="your@email.com"
+                class="w-full px-4 py-3 rounded-xl text-white text-sm placeholder:text-[var(--color-muted)] focus:outline-none transition-colors"
+                style="background: var(--color-bg); border: 1px solid rgba(255,255,255,0.10)" />
+            </div>
+            <div>
+              <label class="block text-xs font-semibold tracking-widest uppercase mb-2" style="color: var(--color-muted)">Message *</label>
+              <textarea name="message" rows="5" required placeholder="How can we help?"
+                class="w-full px-4 py-3 rounded-xl text-white text-sm placeholder:text-[var(--color-muted)] focus:outline-none transition-colors resize-none"
+                style="background: var(--color-bg); border: 1px solid rgba(255,255,255,0.10)"></textarea>
+            </div>
+            <input type="hidden" name="access_key" value="REPLACE_WEB3FORMS_KEY" />
+            <button type="submit"
+              class="w-full py-3 rounded-xl text-white font-semibold transition-opacity hover:opacity-90"
+              style="background: var(--color-primary)">
+              Send message
+            </button>
+            <p id="form-status" class="text-xs text-center hidden"></p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement;
+  const status = document.getElementById('form-status')!;
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const data = Object.fromEntries(new FormData(form));
+    const res = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    });
+    const json = await res.json() as { success: boolean };
+    status.classList.remove('hidden');
+    if (json.success) {
+      status.textContent = '✓ Message sent! We\'ll be in touch soon.';
+      status.style.color = '#4ade80';
+      form.reset();
+    } else {
+      status.textContent = 'Something went wrong. Please try again.';
+      status.style.color = '#f87171';
+    }
+  });
+</script>

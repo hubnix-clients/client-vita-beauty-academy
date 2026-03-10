@@ -1,0 +1,32 @@
+---
+import Layout from '../layouts/Layout.astro';
+import site from '../content/site.json';
+---
+<Layout title="Legal">
+  <section class="py-24">
+    <div class="max-w-3xl mx-auto px-6">
+      <h1 class="text-4xl font-bold text-white mb-10">Legal Notice</h1>
+      <div class="space-y-8 text-[var(--color-muted)] leading-relaxed">
+        <div>
+          <h2 class="text-white font-semibold text-lg mb-2">Business Information</h2>
+          <p>{site.business_name}</p>
+          {site.contact.address && <p>{site.contact.address}</p>}
+          {site.contact.email && <p>Email: {site.contact.email}</p>}
+          {site.contact.phone && <p>Phone: {site.contact.phone}</p>}
+        </div>
+        <div>
+          <h2 class="text-white font-semibold text-lg mb-2">Privacy Policy</h2>
+          <p>We collect personal data only when you contact us via our contact form. This data is used solely to respond to your enquiry and is not shared with third parties. You have the right to request deletion of your data at any time by contacting us at {site.contact.email || 'the email address above'}.</p>
+        </div>
+        <div>
+          <h2 class="text-white font-semibold text-lg mb-2">Cookies</h2>
+          <p>This website does not use tracking cookies. We may use essential cookies for functionality only.</p>
+        </div>
+        <div>
+          <h2 class="text-white font-semibold text-lg mb-2">Disclaimer</h2>
+          <p>The information on this website is provided in good faith and for general informational purposes only. We make no representations or warranties of any kind, express or implied, about the completeness, accuracy, or suitability of the information.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

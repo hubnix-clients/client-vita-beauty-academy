@@ -1,0 +1,44 @@
+{
+  "business_name": "Business Name",
+  "tagline": "Your tagline here",
+  "description": "What your business does, who you serve, and why clients choose you.",
+  "language": "en",
+  "contact": {
+    "email": "hello@yourbusiness.com",
+    "phone": "",
+    "address": "",
+    "hours": ""
+  },
+  "social": {
+    "facebook": "",
+    "instagram": "",
+    "whatsapp": "",
+    "tiktok": ""
+  },
+  "branding": {
+    "colors": "",
+    "style": "",
+    "has_logo": "no"
+  },
+  "services": [
+    {
+      "name": "Service One",
+      "description": "Short description of this service."
+    },
+    {
+      "name": "Service Two",
+      "description": "Short description of this service."
+    }
+  ],
+  "extra_pages": [],
+  "domain": {
+    "status": "subdomain",
+    "name": ""
+  },
+  "meta": {
+    "order_id": "",
+    "package": "starter",
+    "addons": "",
+    "created_at": ""
+  }
+}

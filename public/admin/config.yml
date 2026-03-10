@@ -1,0 +1,11 @@
+# This file is replaced by the pipeline for each client.
+# Placeholder — do not edit manually.
+backend:
+  name: github
+  repo: lesss1986/client-site-template
+  branch: main
+
+media_folder: public/images
+public_folder: /images
+
+collections: []
