@@ -1,11 +1,40 @@
-# This file is replaced by the pipeline for each client.
-# Placeholder — do not edit manually.
 backend:
   name: github
-  repo: lesss1986/client-site-template
+  repo: lesss1986/client-vita-beauty-academy
   branch: main
 
 media_folder: public/images
 public_folder: /images
 
-collections: []
+collections:
+  - name: "site"
+    label: "Site Content"
+    files:
+      - label: "Site Settings"
+        name: "settings"
+        file: "src/content/site.json"
+        fields:
+          - { label: "Business Name", name: "business_name", widget: "string" }
+          - { label: "Tagline", name: "tagline", widget: "string", required: false }
+          - { label: "Description", name: "description", widget: "text" }
+          - label: "Contact"
+            name: "contact"
+            widget: "object"
+            fields:
+              - { label: "Email", name: "email", widget: "string" }
+              - { label: "Phone", name: "phone", widget: "string", required: false }
+              - { label: "Address", name: "address", widget: "string", required: false }
+              - { label: "Hours", name: "hours", widget: "string", required: false }
+          - label: "Social"
+            name: "social"
+            widget: "object"
+            fields:
+              - { label: "Facebook", name: "facebook", widget: "string", required: false }
+              - { label: "Instagram", name: "instagram", widget: "string", required: false }
+              - { label: "WhatsApp", name: "whatsapp", widget: "string", required: false }
+          - label: "Services"
+            name: "services"
+            widget: "list"
+            fields:
+              - { label: "Name", name: "name", widget: "string" }
+              - { label: "Description", name: "description", widget: "text", required: false }
