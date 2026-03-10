@@ -3,6 +3,17 @@
   "tagline": "",
   "description": "Questo un sito per estetiste italiane chi hanno voglia di impararli fare le sopracciglia (forma, correzione, colorazione), usare pinzetta e filo, sapere quasi tutte le marche delle tinte, fare laminazione delle ciglia e sopracciglia \nPosso venire io in centro estetico e fare un corso per personale \nQualsiasi città di Italia ",
   "language": "it",
+  "theme": "light",
+  "palette": {
+    "bg": "#ffffff",
+    "surface": "#f5f7f5",
+    "primary": "#2d5a3d",
+    "secondary": "#4a8c61",
+    "text": "#1a1a1a",
+    "muted": "#6b7280",
+    "border": "rgba(0,0,0,0.08)",
+    "hover": "rgba(0,0,0,0.04)"
+  },
   "contact": {
     "email": "v.panchenko90@gmail.com",
     "phone": "+393486829209",
@@ -22,7 +33,7 @@
   },
   "services": [
     {
-      "name": "Corso “Sopracciglia VIP”. 2 giorni, 10:00-18:00.",
+      "name": "Corso "Sopracciglia VIP". 2 giorni, 10:00-18:00.",
       "description": ""
     },
     {
@@ -50,7 +61,7 @@
       "description": ""
     },
     {
-      "name": "Corso “Laminazione ciglia” - 1 giorno. 10:00-19:00, prezzo 500 euro + IVA. Avrai tutta info dei migliori prodotti, saprai fare qualsiasi ciglia con 100% garanzia di risultato.",
+      "name": "Corso "Laminazione ciglia" - 1 giorno. 10:00-19:00, prezzo 500 euro + IVA. Avrai tutta info dei migliori prodotti, saprai fare qualsiasi ciglia con 100% garanzia di risultato.",
       "description": ""
     },
     {

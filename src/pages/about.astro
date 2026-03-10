@@ -1,30 +1,35 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import site from '../content/site.json';
+const lang = site.language || 'en';
+const t: Record<string, Record<string, string>> = {
+  en: { label: 'Who we are', contact_btn: 'Contact us' },
+  it: { label: 'Chi siamo', contact_btn: 'Contattaci' },
+  uk: { label: 'Хто ми', contact_btn: 'Зв\'язатися' },
+};
+const s = t[lang] ?? t['en'];
 ---
-<Layout title="About">
-  <section class="py-24">
-    <div class="max-w-4xl mx-auto px-6">
-      <p class="text-xs font-semibold tracking-widest uppercase mb-4" style="color: var(--color-secondary)">Who we are</p>
-      <h1 class="text-5xl font-bold text-white mb-8">About {site.business_name}</h1>
-      <p class="text-xl text-[var(--color-muted)] leading-relaxed mb-8">{site.description}</p>
+<Layout title={s.label}>
+  <section style="padding:80px 0;">
+    <div style="max-width:860px; margin:0 auto; padding:0 24px;">
+      <p style="font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--color-secondary); margin:0 0 16px;">{s.label}</p>
+      <h1 style="font-size:clamp(2rem,5vw,3.5rem); font-weight:700; color:var(--color-text); margin:0 0 32px;">{site.business_name}</h1>
+      <p style="font-size:1.2rem; color:var(--color-muted); line-height:1.8; margin:0 0 40px;">{site.description}</p>
+
       {site.contact.address && (
-        <div class="flex items-start gap-3 mt-8">
-          <div class="w-8 h-8 rounded-lg flex-shrink-0 flex items-center justify-center" style="background: var(--color-primary)20">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="color: var(--color-secondary)">
+        <div style="display:flex; align-items:flex-start; gap:14px; margin-bottom:20px;">
+          <div style="width:36px; height:36px; min-width:36px; border-radius:10px; display:flex; align-items:center; justify-content:center; background:color-mix(in srgb, var(--color-primary) 12%, transparent);">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style={`color:var(--color-secondary)`}>
               <path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
               <path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
             </svg>
           </div>
-          <p class="text-[var(--color-muted)]">{site.contact.address}</p>
+          <p style="color:var(--color-muted); margin:0; line-height:1.6;">{site.contact.address}</p>
         </div>
       )}
-      <div class="mt-12">
-        <a href="/contact"
-          class="inline-flex px-8 py-3 rounded-xl text-white font-semibold transition-opacity hover:opacity-90"
-          style="background: var(--color-primary)">
-          Contact us
-        </a>
+
+      <div style="margin-top:48px;">
+        <a href="/contact" class="btn-primary">{s.contact_btn}</a>
       </div>
     </div>
   </section>

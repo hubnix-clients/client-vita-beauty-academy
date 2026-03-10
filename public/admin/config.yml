@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: lesss1986/client-vita-beauty-academy
+  repo: hubnix-clients/client-vita-beauty-academy
   branch: main
 
 media_folder: public/images

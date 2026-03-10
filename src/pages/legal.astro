@@ -1,30 +1,38 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import site from '../content/site.json';
+const lang = site.language || 'en';
+const t: Record<string, Record<string, string>> = {
+  en: { title: 'Legal Notice', biz_info: 'Business Information', privacy_title: 'Privacy Policy', privacy_body: 'We collect personal data only when you contact us via our contact form. This data is used solely to respond to your enquiry and is not shared with third parties. You have the right to request deletion of your data at any time by contacting us.', cookies_title: 'Cookies', cookies_body: 'This website does not use tracking cookies. We may use essential cookies for functionality only.', disclaimer_title: 'Disclaimer', disclaimer_body: 'The information on this website is provided in good faith and for general informational purposes only. We make no representations or warranties of any kind, express or implied, about the completeness, accuracy, or suitability of the information.' },
+  it: { title: 'Note Legali', biz_info: 'Informazioni aziendali', privacy_title: 'Privacy Policy', privacy_body: 'Raccogliamo dati personali solo quando ci contatti tramite il modulo di contatto. Questi dati vengono utilizzati esclusivamente per rispondere alla tua richiesta e non vengono condivisi con terzi. Hai il diritto di richiedere la cancellazione dei tuoi dati in qualsiasi momento contattandoci.', cookies_title: 'Cookie', cookies_body: 'Questo sito non utilizza cookie di tracciamento. Potremmo utilizzare cookie essenziali solo per la funzionalità del sito.', disclaimer_title: 'Disclaimer', disclaimer_body: "Le informazioni su questo sito sono fornite in buona fede e solo a scopo informativo generale. Non rilasciamo alcuna dichiarazione o garanzia di alcun tipo, espressa o implicita, riguardo alla completezza, accuratezza o idoneità delle informazioni." },
+  uk: { title: 'Правова інформація', biz_info: 'Інформація про компанію', privacy_title: 'Політика конфіденційності', privacy_body: 'Ми збираємо персональні дані лише коли ви зв\'язуєтесь з нами через форму. Ці дані використовуються виключно для відповіді на ваш запит і не передаються третім особам. Ви маєте право вимагати видалення своїх даних у будь-який час.', cookies_title: 'Файли cookie', cookies_body: 'Цей сайт не використовує відстежувальні файли cookie. Ми можемо використовувати лише необхідні cookie для функціональності.', disclaimer_title: 'Відмова від відповідальності', disclaimer_body: 'Інформація на цьому сайті надана в добрій вірі та лише для загальних інформаційних цілей. Ми не даємо жодних гарантій щодо повноти, точності або придатності інформації.' },
+};
+const s = t[lang] ?? t['en'];
 ---
-<Layout title="Legal">
-  <section class="py-24">
-    <div class="max-w-3xl mx-auto px-6">
-      <h1 class="text-4xl font-bold text-white mb-10">Legal Notice</h1>
-      <div class="space-y-8 text-[var(--color-muted)] leading-relaxed">
+<Layout title={s.title}>
+  <section style="padding:80px 0;">
+    <div style="max-width:800px; margin:0 auto; padding:0 24px;">
+      <h1 style="font-size:clamp(1.8rem,4vw,2.5rem); font-weight:700; color:var(--color-text); margin:0 0 48px;">{s.title}</h1>
+
+      <div style="display:flex; flex-direction:column; gap:40px; color:var(--color-muted); line-height:1.7;">
         <div>
-          <h2 class="text-white font-semibold text-lg mb-2">Business Information</h2>
-          <p>{site.business_name}</p>
-          {site.contact.address && <p>{site.contact.address}</p>}
-          {site.contact.email && <p>Email: {site.contact.email}</p>}
-          {site.contact.phone && <p>Phone: {site.contact.phone}</p>}
+          <h2 style="font-size:1rem; font-weight:600; color:var(--color-text); margin:0 0 12px;">{s.biz_info}</h2>
+          <p style="margin:0 0 4px;">{site.business_name}</p>
+          {site.contact.address && <p style="margin:0 0 4px;">{site.contact.address}</p>}
+          {site.contact.email && <p style="margin:0 0 4px;">Email: {site.contact.email}</p>}
+          {site.contact.phone && <p style="margin:0;">Tel: {site.contact.phone}</p>}
         </div>
         <div>
-          <h2 class="text-white font-semibold text-lg mb-2">Privacy Policy</h2>
-          <p>We collect personal data only when you contact us via our contact form. This data is used solely to respond to your enquiry and is not shared with third parties. You have the right to request deletion of your data at any time by contacting us at {site.contact.email || 'the email address above'}.</p>
+          <h2 style="font-size:1rem; font-weight:600; color:var(--color-text); margin:0 0 12px;">{s.privacy_title}</h2>
+          <p style="margin:0;">{s.privacy_body}</p>
         </div>
         <div>
-          <h2 class="text-white font-semibold text-lg mb-2">Cookies</h2>
-          <p>This website does not use tracking cookies. We may use essential cookies for functionality only.</p>
+          <h2 style="font-size:1rem; font-weight:600; color:var(--color-text); margin:0 0 12px;">{s.cookies_title}</h2>
+          <p style="margin:0;">{s.cookies_body}</p>
         </div>
         <div>
-          <h2 class="text-white font-semibold text-lg mb-2">Disclaimer</h2>
-          <p>The information on this website is provided in good faith and for general informational purposes only. We make no representations or warranties of any kind, express or implied, about the completeness, accuracy, or suitability of the information.</p>
+          <h2 style="font-size:1rem; font-weight:600; color:var(--color-text); margin:0 0 12px;">{s.disclaimer_title}</h2>
+          <p style="margin:0;">{s.disclaimer_body}</p>
         </div>
       </div>
     </div>

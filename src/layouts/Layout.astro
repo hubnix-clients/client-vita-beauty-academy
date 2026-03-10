@@ -1,15 +1,34 @@
 ---
 import site from '../content/site.json';
-interface Props {
-  title?: string;
-  description?: string;
-}
+interface Props { title?: string; description?: string; }
 const { title, description } = Astro.props;
 const pageTitle = title ? `${title} — ${site.business_name}` : site.business_name;
 const pageDesc = description || site.description;
+const lang = site.language || 'en';
+const palette = site.palette || {};
+const theme = site.theme || 'dark';
+
+const t: Record<string, Record<string, string>> = {
+  en: { home: 'Home', services: 'Services', about: 'About', contact: 'Contact',
+        cta: 'Get in touch', services_btn: 'Our services', footer_rights: 'All rights reserved',
+        built_by: 'Built by', whatsapp: 'WhatsApp', legal: 'Legal' },
+  it: { home: 'Home', services: 'Servizi', about: 'Chi siamo', contact: 'Contatti',
+        cta: 'Contattaci', services_btn: 'I nostri servizi', footer_rights: 'Tutti i diritti riservati',
+        built_by: 'Realizzato da', whatsapp: 'WhatsApp', legal: 'Note legali' },
+  uk: { home: 'Головна', services: 'Послуги', about: 'Про нас', contact: 'Контакти',
+        cta: 'Зв\'язатися', services_btn: 'Наші послуги', footer_rights: 'Всі права захищені',
+        built_by: 'Створено', whatsapp: 'WhatsApp', legal: 'Правова інформація' },
+};
+const s = t[lang] ?? t['en'];
+
+// Default palettes per theme
+const darkDefaults = { bg:'#0a0f1a', surface:'#111827', primary:'#1E88E5', secondary:'#29B6F6', text:'#e2e8f0', muted:'#64748b', border:'rgba(255,255,255,0.07)', hover:'rgba(255,255,255,0.05)' };
+const lightDefaults = { bg:'#ffffff', surface:'#f5f7f5', primary:'#2d5a3d', secondary:'#4a8c61', text:'#1a1a1a', muted:'#6b7280', border:'rgba(0,0,0,0.08)', hover:'rgba(0,0,0,0.04)' };
+const defaults = theme === 'light' ? lightDefaults : darkDefaults;
+const p = { ...defaults, ...palette };
 ---
 <!DOCTYPE html>
-<html lang={site.language}>
+<html lang={lang}>
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -18,77 +37,93 @@ const pageDesc = description || site.description;
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-  <style>
+  <style define:vars={{
+    'color-bg': p.bg, 'color-surface': p.surface, 'color-primary': p.primary,
+    'color-secondary': p.secondary, 'color-text': p.text, 'color-muted': p.muted,
+    'color-border': p.border, 'color-hover': p.hover,
+  }}>
     :root {
-      --color-primary:   #1E88E5;
-      --color-secondary: #29B6F6;
-      --color-bg:        #0a0f1a;
-      --color-surface:   #111827;
-      --color-text:      #e2e8f0;
-      --color-muted:     #64748b;
+      --color-bg: var(--color-bg);
+      --color-surface: var(--color-surface);
+      --color-primary: var(--color-primary);
+      --color-secondary: var(--color-secondary);
+      --color-text: var(--color-text);
+      --color-muted: var(--color-muted);
+      --color-border: var(--color-border);
+      --color-hover: var(--color-hover);
     }
-    body { font-family: 'Inter', system-ui, sans-serif; background: var(--color-bg); color: var(--color-text); }
-    a { color: inherit; }
-    ::selection { background: var(--color-primary); color: white; }
+    *, *::before, *::after { box-sizing: border-box; }
+    body { font-family: 'Inter', system-ui, sans-serif; background: var(--color-bg); color: var(--color-text); margin: 0; }
+    a { color: inherit; text-decoration: none; }
+    ::selection { background: var(--color-primary); color: #fff; }
+    .nav-link { padding: 8px 16px; border-radius: 8px; font-size: 14px; font-weight: 500; color: var(--color-muted); transition: color .2s, background .2s; }
+    .nav-link:hover { color: var(--color-text); background: var(--color-hover); }
+    .btn-primary { display: inline-flex; align-items: center; gap: 8px; padding: 12px 28px; border-radius: 14px; background: var(--color-primary); color: #fff; font-weight: 600; font-size: 14px; transition: opacity .2s; border: none; cursor: pointer; }
+    .btn-primary:hover { opacity: .88; }
+    .btn-outline { display: inline-flex; align-items: center; gap: 8px; padding: 12px 28px; border-radius: 14px; background: transparent; color: var(--color-text); font-weight: 600; font-size: 14px; border: 1px solid var(--color-border); transition: background .2s; cursor: pointer; }
+    .btn-outline:hover { background: var(--color-hover); }
   </style>
 </head>
-<body class="min-h-screen flex flex-col">
-  <!-- Nav -->
-  <header class="fixed top-0 left-0 right-0 z-50 bg-[var(--color-bg)]/80 backdrop-blur-xl border-b border-white/[0.06]">
-    <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-      <a href="/" class="font-bold text-lg text-white">{site.business_name}</a>
-      <nav class="hidden md:flex gap-1">
-        <a href="/" class="px-4 py-2 text-sm text-[var(--color-muted)] hover:text-white rounded-lg hover:bg-white/5 transition-colors">Home</a>
-        <a href="/services" class="px-4 py-2 text-sm text-[var(--color-muted)] hover:text-white rounded-lg hover:bg-white/5 transition-colors">Services</a>
-        <a href="/about" class="px-4 py-2 text-sm text-[var(--color-muted)] hover:text-white rounded-lg hover:bg-white/5 transition-colors">About</a>
-        <a href="/contact" class="px-4 py-2 text-sm text-[var(--color-muted)] hover:text-white rounded-lg hover:bg-white/5 transition-colors">Contact</a>
+<body style="min-height:100vh; display:flex; flex-direction:column;">
+
+  <!-- Header -->
+  <header style="position:fixed; top:0; left:0; right:0; z-index:50; background: color-mix(in srgb, var(--color-bg) 85%, transparent); backdrop-filter:blur(20px); border-bottom: 1px solid var(--color-border);">
+    <div style="max-width:1200px; margin:0 auto; padding:0 24px; height:64px; display:flex; align-items:center; justify-content:space-between;">
+      <a href="/" style="font-weight:700; font-size:18px; color:var(--color-text);">{site.business_name}</a>
+      <nav style="display:flex; gap:4px; align-items:center;">
+        <a href="/" class="nav-link">{s.home}</a>
+        <a href="/services" class="nav-link">{s.services}</a>
+        <a href="/about" class="nav-link">{s.about}</a>
+        <a href="/contact" class="nav-link">{s.contact}</a>
       </nav>
       {site.contact.phone && (
-        <a href={`tel:${site.contact.phone}`}
-          class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[var(--color-primary)] hover:opacity-90 text-white text-sm font-medium transition-opacity">
-          {site.contact.phone}
-        </a>
+        <a href={`tel:${site.contact.phone}`} class="btn-primary" style="font-size:13px; padding:8px 18px;">{site.contact.phone}</a>
       )}
     </div>
   </header>
 
-  <main class="flex-1 pt-16">
+  <main style="flex:1; padding-top:64px;">
     <slot />
   </main>
 
   <!-- Footer -->
-  <footer class="border-t border-white/[0.06] mt-16">
-    <div class="max-w-6xl mx-auto px-6 py-12">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+  <footer style="border-top: 1px solid var(--color-border); margin-top:80px;">
+    <div style="max-width:1200px; margin:0 auto; padding:48px 24px;">
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px,1fr)); gap:40px; margin-bottom:40px;">
         <div>
-          <p class="font-bold text-white text-lg mb-2">{site.business_name}</p>
-          {site.tagline && <p class="text-[var(--color-muted)] text-sm">{site.tagline}</p>}
+          <p style="font-weight:700; font-size:18px; color:var(--color-text); margin:0 0 8px;">{site.business_name}</p>
+          {site.tagline && <p style="color:var(--color-muted); font-size:14px; margin:0;">{site.tagline}</p>}
         </div>
         <div>
-          <p class="text-xs font-semibold tracking-widest uppercase text-[var(--color-muted)] mb-3">Contact</p>
-          {site.contact.email && <p class="text-sm text-[var(--color-text)] mb-1"><a href={`mailto:${site.contact.email}`} class="hover:text-[var(--color-secondary)]">{site.contact.email}</a></p>}
-          {site.contact.phone && <p class="text-sm text-[var(--color-text)] mb-1">{site.contact.phone}</p>}
-          {site.contact.address && <p class="text-sm text-[var(--color-muted)]">{site.contact.address}</p>}
-          {site.contact.hours && <p class="text-sm text-[var(--color-muted)]">{site.contact.hours}</p>}
+          <p style="font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--color-muted); margin:0 0 12px;">Contact</p>
+          {site.contact.email && <p style="margin:0 0 6px;"><a href={`mailto:${site.contact.email}`} style="color:var(--color-text); font-size:14px;">{site.contact.email}</a></p>}
+          {site.contact.phone && <p style="color:var(--color-muted); font-size:14px; margin:0 0 6px;">{site.contact.phone}</p>}
+          {site.contact.address && <p style="color:var(--color-muted); font-size:14px; margin:0 0 6px;">{site.contact.address}</p>}
+          {site.contact.hours && <p style="color:var(--color-muted); font-size:14px; margin:0;">{site.contact.hours}</p>}
         </div>
         <div>
-          <p class="text-xs font-semibold tracking-widest uppercase text-[var(--color-muted)] mb-3">Follow</p>
-          <div class="flex gap-3">
-            {site.social.instagram && <a href={site.social.instagram} class="text-[var(--color-muted)] hover:text-white text-sm transition-colors">Instagram</a>}
-            {site.social.facebook && <a href={site.social.facebook} class="text-[var(--color-muted)] hover:text-white text-sm transition-colors">Facebook</a>}
-            {site.social.tiktok && <a href={site.social.tiktok} class="text-[var(--color-muted)] hover:text-white text-sm transition-colors">TikTok</a>}
+          {(site.social.instagram || site.social.facebook || site.social.tiktok) && (
+            <p style="font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--color-muted); margin:0 0 12px;">Social</p>
+          )}
+          <div style="display:flex; flex-direction:column; gap:6px;">
+            {site.social.instagram && <a href={site.social.instagram} style="color:var(--color-muted); font-size:14px;">Instagram</a>}
+            {site.social.facebook && <a href={site.social.facebook} style="color:var(--color-muted); font-size:14px;">Facebook</a>}
+            {site.social.tiktok && <a href={site.social.tiktok} style="color:var(--color-muted); font-size:14px;">TikTok</a>}
           </div>
           {site.social.whatsapp && (
             <a href={`https://wa.me/${site.social.whatsapp.replace(/\D/g,'')}`}
-              class="inline-flex items-center gap-2 mt-4 px-4 py-2 rounded-xl bg-[#25D366]/10 border border-[#25D366]/30 text-[#25D366] text-sm hover:bg-[#25D366]/20 transition-colors">
-              WhatsApp
+              style="display:inline-flex; align-items:center; gap:8px; margin-top:16px; padding:8px 16px; border-radius:10px; background:#25D36615; border:1px solid #25D36630; color:#25D366; font-size:13px; font-weight:600;">
+              {s.whatsapp}
             </a>
           )}
         </div>
       </div>
-      <div class="border-t border-white/[0.04] mt-8 pt-6 flex flex-col sm:flex-row justify-between items-center gap-2">
-        <p class="text-[var(--color-muted)] text-xs">© {new Date().getFullYear()} {site.business_name}. All rights reserved.</p>
-        <a href="/legal" class="text-[var(--color-muted)] text-xs hover:text-white transition-colors">Legal</a>
+      <div style="border-top:1px solid var(--color-border); padding-top:24px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+        <p style="color:var(--color-muted); font-size:12px; margin:0;">© {new Date().getFullYear()} {site.business_name}. {s.footer_rights}.</p>
+        <div style="display:flex; gap:16px; align-items:center;">
+          <a href="/legal" style="color:var(--color-muted); font-size:12px;">{s.legal}</a>
+          <span style="color:var(--color-muted); font-size:12px;">{s.built_by} <a href="https://hubnixco.com" style="color:var(--color-primary); font-weight:600;">Hubnix</a></span>
+        </div>
       </div>
     </div>
   </footer>

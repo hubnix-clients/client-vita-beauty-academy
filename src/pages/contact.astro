@@ -1,56 +1,63 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import site from '../content/site.json';
+const lang = site.language || 'en';
+const t: Record<string, Record<string, string>> = {
+  en: { label: 'Get in touch', title: 'Contact us', sub: "We'd love to hear from you. Reach out any way that's convenient.", name: 'Name', email: 'Email', message: 'Message', send: 'Send message', whatsapp: 'Chat on WhatsApp', success: "✓ Message sent! We'll be in touch soon.", error: 'Something went wrong. Please try again.' },
+  it: { label: 'Contattaci', title: 'Contatti', sub: 'Siamo qui per aiutarti. Scrivici nel modo che preferisci.', name: 'Nome', email: 'Email', message: 'Messaggio', send: 'Invia messaggio', whatsapp: 'Scrivici su WhatsApp', success: '✓ Messaggio inviato! Ti risponderemo presto.', error: 'Qualcosa è andato storto. Riprova.' },
+  uk: { label: "Зв'яжіться", title: 'Контакти', sub: 'Ми раді вам допомогти. Напишіть зручним способом.', name: "Ім'я", email: 'Email', message: 'Повідомлення', send: 'Надіслати', whatsapp: 'WhatsApp', success: '✓ Повідомлення надіслано!', error: 'Щось пішло не так. Спробуйте ще раз.' },
+};
+const s = t[lang] ?? t['en'];
+const inputStyle = "width:100%; padding:12px 16px; border-radius:12px; font-size:14px; color:var(--color-text); background:var(--color-bg); border:1px solid var(--color-border); outline:none; font-family:inherit; box-sizing:border-box;";
 ---
-<Layout title="Contact">
-  <section class="py-24">
-    <div class="max-w-6xl mx-auto px-6">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+<Layout title={s.title}>
+  <section style="padding:80px 0;">
+    <div style="max-width:1200px; margin:0 auto; padding:0 24px;">
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:64px;">
 
         <!-- Info -->
         <div>
-          <p class="text-xs font-semibold tracking-widest uppercase mb-4" style="color: var(--color-secondary)">Get in touch</p>
-          <h1 class="text-5xl font-bold text-white mb-6">Contact us</h1>
-          <p class="text-[var(--color-muted)] text-lg mb-10">We'd love to hear from you. Reach out any way that's convenient.</p>
+          <p style="font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--color-secondary); margin:0 0 16px;">{s.label}</p>
+          <h1 style="font-size:clamp(2rem,5vw,3rem); font-weight:700; color:var(--color-text); margin:0 0 16px;">{s.title}</h1>
+          <p style="color:var(--color-muted); font-size:1rem; margin:0 0 40px; line-height:1.7;">{s.sub}</p>
 
-          <div class="space-y-5">
+          <div style="display:flex; flex-direction:column; gap:16px;">
             {site.contact.email && (
-              <div class="flex items-center gap-4">
-                <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style="background: var(--color-primary)20">
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="color: var(--color-secondary)"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+              <div style="display:flex; align-items:center; gap:14px;">
+                <div style="width:40px; height:40px; min-width:40px; border-radius:12px; display:flex; align-items:center; justify-content:center; background:color-mix(in srgb, var(--color-primary) 12%, transparent);">
+                  <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style={`color:var(--color-secondary)`}><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
                 </div>
-                <a href={`mailto:${site.contact.email}`} class="text-white hover:text-[var(--color-secondary)] transition-colors">{site.contact.email}</a>
+                <a href={`mailto:${site.contact.email}`} style="color:var(--color-text); font-size:14px;">{site.contact.email}</a>
               </div>
             )}
             {site.contact.phone && (
-              <div class="flex items-center gap-4">
-                <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style="background: var(--color-primary)20">
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="color: var(--color-secondary)"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+              <div style="display:flex; align-items:center; gap:14px;">
+                <div style="width:40px; height:40px; min-width:40px; border-radius:12px; display:flex; align-items:center; justify-content:center; background:color-mix(in srgb, var(--color-primary) 12%, transparent);">
+                  <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style={`color:var(--color-secondary)`}><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
                 </div>
-                <a href={`tel:${site.contact.phone}`} class="text-white hover:text-[var(--color-secondary)] transition-colors">{site.contact.phone}</a>
+                <a href={`tel:${site.contact.phone}`} style="color:var(--color-text); font-size:14px;">{site.contact.phone}</a>
               </div>
             )}
             {site.contact.address && (
-              <div class="flex items-start gap-4">
-                <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style="background: var(--color-primary)20">
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="color: var(--color-secondary)"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+              <div style="display:flex; align-items:flex-start; gap:14px;">
+                <div style="width:40px; height:40px; min-width:40px; border-radius:12px; display:flex; align-items:center; justify-content:center; background:color-mix(in srgb, var(--color-primary) 12%, transparent);">
+                  <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style={`color:var(--color-secondary)`}><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                 </div>
-                <p class="text-[var(--color-muted)]">{site.contact.address}</p>
+                <p style="color:var(--color-muted); margin:0; font-size:14px; line-height:1.6;">{site.contact.address}</p>
               </div>
             )}
             {site.contact.hours && (
-              <div class="flex items-center gap-4">
-                <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style="background: var(--color-primary)20">
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="color: var(--color-secondary)"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+              <div style="display:flex; align-items:center; gap:14px;">
+                <div style="width:40px; height:40px; min-width:40px; border-radius:12px; display:flex; align-items:center; justify-content:center; background:color-mix(in srgb, var(--color-primary) 12%, transparent);">
+                  <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style={`color:var(--color-secondary)`}><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
                 </div>
-                <p class="text-[var(--color-muted)]">{site.contact.hours}</p>
+                <p style="color:var(--color-muted); margin:0; font-size:14px;">{site.contact.hours}</p>
               </div>
             )}
             {site.social.whatsapp && (
               <a href={`https://wa.me/${site.social.whatsapp.replace(/\D/g,'')}`}
-                class="inline-flex items-center gap-3 px-6 py-3 rounded-xl text-sm font-semibold transition-colors"
-                style="background: #25D36620; border: 1px solid #25D36640; color: #25D366">
-                Chat on WhatsApp
+                style="display:inline-flex; align-items:center; gap:10px; margin-top:8px; padding:10px 20px; border-radius:12px; background:#25D36615; border:1px solid #25D36630; color:#25D366; font-size:13px; font-weight:600; width:fit-content;">
+                {s.whatsapp}
               </a>
             )}
           </div>
@@ -58,42 +65,33 @@ import site from '../content/site.json';
 
         <!-- Form -->
         <div>
-          <form id="contact-form" class="space-y-5 p-8 rounded-2xl" style="background: var(--color-surface); border: 1px solid rgba(255,255,255,0.06)">
+          <form id="contact-form" style="display:flex; flex-direction:column; gap:16px; padding:32px; border-radius:20px; background:var(--color-surface); border:1px solid var(--color-border);">
             <div>
-              <label class="block text-xs font-semibold tracking-widest uppercase mb-2" style="color: var(--color-muted)">Name *</label>
-              <input name="name" type="text" required placeholder="Your name"
-                class="w-full px-4 py-3 rounded-xl text-white text-sm placeholder:text-[var(--color-muted)] focus:outline-none transition-colors"
-                style="background: var(--color-bg); border: 1px solid rgba(255,255,255,0.10)" />
+              <label style="display:block; font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--color-muted); margin-bottom:8px;">{s.name} *</label>
+              <input name="name" type="text" required style={inputStyle} />
             </div>
             <div>
-              <label class="block text-xs font-semibold tracking-widest uppercase mb-2" style="color: var(--color-muted)">Email *</label>
-              <input name="email" type="email" required placeholder="your@email.com"
-                class="w-full px-4 py-3 rounded-xl text-white text-sm placeholder:text-[var(--color-muted)] focus:outline-none transition-colors"
-                style="background: var(--color-bg); border: 1px solid rgba(255,255,255,0.10)" />
+              <label style="display:block; font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--color-muted); margin-bottom:8px;">{s.email} *</label>
+              <input name="email" type="email" required style={inputStyle} />
             </div>
             <div>
-              <label class="block text-xs font-semibold tracking-widest uppercase mb-2" style="color: var(--color-muted)">Message *</label>
-              <textarea name="message" rows="5" required placeholder="How can we help?"
-                class="w-full px-4 py-3 rounded-xl text-white text-sm placeholder:text-[var(--color-muted)] focus:outline-none transition-colors resize-none"
-                style="background: var(--color-bg); border: 1px solid rgba(255,255,255,0.10)"></textarea>
+              <label style="display:block; font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--color-muted); margin-bottom:8px;">{s.message} *</label>
+              <textarea name="message" rows="5" required style={`${inputStyle} resize:none;`}></textarea>
             </div>
             <input type="hidden" name="access_key" value="REPLACE_WEB3FORMS_KEY" />
-            <button type="submit"
-              class="w-full py-3 rounded-xl text-white font-semibold transition-opacity hover:opacity-90"
-              style="background: var(--color-primary)">
-              Send message
-            </button>
-            <p id="form-status" class="text-xs text-center hidden"></p>
+            <button type="submit" class="btn-primary" style="justify-content:center;">{s.send}</button>
+            <p id="form-status" style="font-size:12px; text-align:center; display:none; margin:0;"></p>
           </form>
         </div>
+
       </div>
     </div>
   </section>
 </Layout>
 
-<script>
-  const form = document.getElementById('contact-form') as HTMLFormElement;
-  const status = document.getElementById('form-status')!;
+<script define:vars={{ successMsg: s.success, errorMsg: s.error }}>
+  const form = document.getElementById('contact-form');
+  const status = document.getElementById('form-status');
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
     const data = Object.fromEntries(new FormData(form));
@@ -102,14 +100,14 @@ import site from '../content/site.json';
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
     });
-    const json = await res.json() as { success: boolean };
-    status.classList.remove('hidden');
+    const json = await res.json();
+    status.style.display = 'block';
     if (json.success) {
-      status.textContent = '✓ Message sent! We\'ll be in touch soon.';
+      status.textContent = successMsg;
       status.style.color = '#4ade80';
       form.reset();
     } else {
-      status.textContent = 'Something went wrong. Please try again.';
+      status.textContent = errorMsg;
       status.style.color = '#f87171';
     }
   });
